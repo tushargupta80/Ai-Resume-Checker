@@ -60,22 +60,40 @@ Frontend (`frontend/.env`):
 ## Deployment
 
 ### Render (Backend)
-1. Create a Web Service pointing to `backend`.
-2. Build command: `npm install`
-3. Start command: `npm start`
-4. Configure backend env vars.
-5. Set `CLIENT_URL` to your Vercel frontend domain.
+1. Push this repository to GitHub.
+2. In Render, create a new **Blueprint** and select this repo.
+3. Render will pick up [render.yaml](C:\ai Resume\render.yaml) and create backend service automatically.
+4. In Render dashboard, set secret env vars:
+   - `MONGO_URI`
+   - `JWT_SECRET`
+   - `CLIENT_URL` (your Vercel domain, e.g. `https://your-app.vercel.app`)
+   - `GROK_API_KEY`
+5. Deploy and confirm health endpoint:
+   - `https://<render-service>.onrender.com/api/health`
 
 ### Vercel (Frontend)
-1. Import project from `frontend`.
-2. Build command: `npm run build`
-3. Output directory: `dist`
-4. Set `VITE_API_URL=https://<render-backend-domain>/api`
+1. In Vercel, import the same GitHub repository.
+2. Set **Root Directory** to `frontend`.
+3. Vercel will use [vercel.json](C:\ai Resume\frontend\vercel.json).
+4. Add env var:
+   - `VITE_API_URL=https://<render-backend-domain>/api`
+5. Deploy and open your frontend URL.
+
+### Post Deploy
+1. Update backend `CLIENT_URL` with the final Vercel URL.
+2. Redeploy backend service (or trigger manual deploy).
+3. Test:
+   - register/login
+   - upload resume
+   - recruiter creates job
+   - job seeker runs analyze
+   - results page loads
 
 ## Notes
 - `backend/uploads` is local storage. Use S3/Cloudinary in production.
 - Use MongoDB Atlas for hosted deployments.
 - Scanned/image PDFs are supported via OCR fallback (`Ghostscript` + `tesseract.js`).
+- Render does not include Ghostscript by default. OCR for scanned PDFs may fail in cloud unless you use a custom Docker image or external OCR service.
 
 ## OCR Prerequisites (for image/scanned PDFs)
 - Install Ghostscript on your machine.
