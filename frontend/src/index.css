@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: #f4f7fb;
+    --surface: #ffffff;
+    --surface-soft: #f8fbff;
+    --ink: #0f172a;
+    --muted: #64748b;
+    --line: #dbe4f0;
+    --primary: #0f5eff;
+    --primary-dark: #0b46bf;
+    --success: #138a52;
+    --danger: #d13f53;
+  }
+
+  body {
+    font-family: "Manrope", sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at 8% -10%, #c7dcff 0%, rgba(199, 220, 255, 0) 30%),
+      radial-gradient(circle at 100% 0%, #d7f0ff 0%, rgba(215, 240, 255, 0) 28%),
+      linear-gradient(180deg, #eff4fb 0%, #f8fafc 100%);
+    min-height: 100vh;
+  }
+}
+
+body {
+  @apply text-slate-900;
+}
+
+@layer components {
+  .app-shell {
+    @apply mx-auto max-w-6xl px-4 py-8 md:px-6;
+  }
+
+  .glass-card {
+    background: color-mix(in srgb, var(--surface) 85%, white 15%);
+    @apply rounded-2xl border border-slate-200/80 shadow-sm backdrop-blur-sm;
+  }
+
+  .section-title {
+    font-family: "Space Grotesk", sans-serif;
+    @apply text-3xl font-bold tracking-tight text-slate-900;
+  }
+
+  .input-field {
+    @apply w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-800 outline-none transition;
+  }
+
+  .input-field:focus {
+    @apply border-blue-500 ring-2 ring-blue-100;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, #1b82ff 100%);
+    @apply rounded-xl px-4 py-2.5 text-sm font-semibold text-white transition hover:brightness-95 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-soft {
+    @apply rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-800 transition hover:bg-slate-50;
+  }
+
+  .stat-tile {
+    @apply rounded-xl border border-slate-200 bg-white p-4;
+  }
+}
